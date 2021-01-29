@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+
+{% extends 'layout.html' %}
+{% block body %}
+
+<div class="row">
+    <div class="col-md-5">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        {% endfor %}
+        {% endif %}
+        {% endwith %}        
+        <div class="card card-body">
+            <h1>Add Product</h1>
+            <form action="/add_producto" method="POST">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="name"
+                           class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="text" name="value" placeholder="value"
+                           class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="text" name="quantity" placeholder="quantity"
+                           class="form-control" />
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Add
+                    </button>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+    <div class="col-md-7">
+        <table class="table table-stripped table-bordered bg-white table-sm">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Value</td>
+                    <td>Quantity</td>
+                    <td>Operations</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in products %}
+                <tr>
+                    <td> {{producto.0}}</td>
+                    <td> {{producto.1}}</td>
+                    <td> {{producto.2}}</td>
+                    <td> {{producto.3}}</td>
+                    <td>
+                        <a href="/edit_producto/{{ producto.0 }}" class="btn btn-secondary">Editar</a>
+                        <a href="/delete_producto/{{ producto.0 }}" class="btn btn-danger btn-delete">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+
+        </table>
+    </div>
+</div>
+<nav class="navbar navbar-dark bg-dark">
+    <form class="container-fluid justify-content-start">
+        <a href="/user_registry" class="btn btn-outline-success me-2" type="button">Register Users</a>
+        <a href="/productos" class="btn btn-outline-success me-2" type="button">Inventory</a>
+    </form>
+</nav>
+
+
+
+
+
+{% endblock %}
