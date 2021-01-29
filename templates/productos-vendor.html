@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+
+{% extends 'layout.html' %}
+{% block body %}
+
+<div>    
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}       
+    <div>
+        <table class="table table-stripped table-bordered bg-white">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Value</td>
+                    <td>Quantity</td>
+                    <td>Operations</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in products %}
+                <tr>
+                    <td> {{producto.0}}</td>
+                    <td> {{producto.1}}</td>
+                    <td> {{producto.2}}</td>
+                    <td> {{producto.3}}</td>
+                    <td>
+                        <a href="/edit_quantity/{{ producto.0 }}" class="btn btn-secondary">Mod Quantity</a>                        
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}
